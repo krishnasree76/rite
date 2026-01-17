@@ -24,10 +24,10 @@ const perks = [
 ];
 
 const values = [
-  { title: "Community First", variant: "solid" },
-  { title: "Excellence in Care", variant: "outline" },
+  { title: "Community First", variant: "soft" },
+  { title: "Excellence in Care", variant: "soft" },
   { title: "Team Collaboration", variant: "soft" },
-  { title: "Continuous Learning", variant: "solid" },
+  { title: "Continuous Learning", variant: "soft" },
 ];
 
 const container: Variants = {
