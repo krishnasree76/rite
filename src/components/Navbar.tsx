@@ -21,10 +21,24 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // ✅ FIX: Scroll after menu closes (so mobile works)
   const scrollToSection = (href) => {
-    const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
     setIsMobileMenuOpen(false);
+
+    setTimeout(() => {
+      const element = document.querySelector(href);
+      if (!element) return;
+
+      // ✅ navbar height offset
+      const headerOffset = 90;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }, 250);
   };
 
   return (
@@ -74,7 +88,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
+          {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <a
               href="#contact"

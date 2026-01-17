@@ -1,23 +1,8 @@
 import { motion } from "framer-motion";
-import { Phone, ArrowUp } from "lucide-react";
+import { Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { useState, useEffect } from "react";
 
 const WhatsappFloat = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <>
       {/* WhatsApp Button - Bottom Right */}
@@ -55,21 +40,6 @@ const WhatsappFloat = () => {
           Call Now
         </span>
       </motion.a>
-
-      {/* Scroll to Top Button */}
-      <motion.button
-        onClick={scrollToTop}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{
-          opacity: showScrollTop ? 1 : 0,
-          scale: showScrollTop ? 1 : 0,
-        }}
-        transition={{ duration: 0.3 }}
-        className="floating-action bottom-24 right-6 bg-foreground/90 text-background"
-        aria-label="Scroll to top"
-      >
-        <ArrowUp className="w-5 h-5" />
-      </motion.button>
     </>
   );
 };
