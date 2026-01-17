@@ -11,7 +11,8 @@
     --foreground: 220 15% 20%;
 
     /* Primary teal - #48B3AF */
-    --primary: 178 42% 49%;
+    --primary: 186 65% 39%;
+
     --primary-foreground: 0 0% 100%;
     
     /* Light teal accent */
@@ -55,7 +56,8 @@
     --background: 220 20% 10%;
     --foreground: 0 0% 98%;
 
-    --primary: 178 42% 55%;
+    --primary: 186 65% 45%;
+
     --primary-foreground: 220 20% 10%;
 
     --accent: 178 30% 20%;
