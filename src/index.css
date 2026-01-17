@@ -122,6 +122,10 @@
     box-shadow: var(--card-shadow-hover);
     @apply -translate-y-1;
   }
+  #root {
+  overflow-x: hidden;
+}
+
 
   /* Icon container */
   .icon-container {
@@ -170,6 +174,12 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 
   .hero-bg {
     background: var(--hero-gradient);

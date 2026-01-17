@@ -78,58 +78,60 @@ const Hero = () => {
           </motion.div>
 
           {/* Right Content - Pharmacy Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative hidden lg:block"
-          >
-            <div className="relative">
-              {/* Main image */}
-              <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-soft-lg">
-                <img
-                  src={pharmacyHero}
-                  alt="Rite Pharmacy interior"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          {/* Right Content - Pharmacy Image */}
+<motion.div
+  initial={{ opacity: 0, x: 30 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="relative block"
+>
+  <div className="relative">
+    {/* Main image */}
+    <div className="w-full aspect-[4/3] lg:aspect-square rounded-3xl overflow-hidden shadow-soft-lg">
+      <img
+        src={pharmacyHero}
+        alt="Rite Pharmacy interior"
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-              {/* Floating cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-4 shadow-soft-lg"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
-                    <Truck className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">Free Delivery</p>
-                    <p className="text-sm text-muted-foreground">Same day service</p>
-                  </div>
-                </div>
-              </motion.div>
+    {/* Floating cards - show only on desktop */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.6 }}
+      className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-4 shadow-soft-lg hidden lg:block"
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center">
+          <Truck className="w-6 h-6 text-green-600" />
+        </div>
+        <div>
+          <p className="font-semibold text-foreground">Free Delivery</p>
+          <p className="text-sm text-muted-foreground">Same day service</p>
+        </div>
+      </div>
+    </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
-                className="absolute -top-4 -right-4 bg-card rounded-2xl p-4 shadow-soft-lg"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                    <Shield className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">100% Safe</p>
-                    <p className="text-sm text-muted-foreground">Certified pharmacy</p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.8 }}
+      className="absolute -top-4 -right-4 bg-card rounded-2xl p-4 shadow-soft-lg hidden lg:block"
+    >
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center">
+          <Shield className="w-6 h-6 text-blue-600" />
+        </div>
+        <div>
+          <p className="font-semibold text-foreground">100% Safe</p>
+          <p className="text-sm text-muted-foreground">Certified pharmacy</p>
+        </div>
+      </div>
+    </motion.div>
+  </div>
+</motion.div>
+
         </div>
       </div>
     </section>
