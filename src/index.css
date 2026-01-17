@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Rite Pharmacy Design System - Teal/Healthcare Theme */
+
+@layer base {
+  :root {
+    /* Core brand colors */
+    --background: 0 0% 100%;
+    --foreground: 220 15% 20%;
+
+    /* Primary teal - #48B3AF */
+    --primary: 178 42% 49%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Light teal accent */
+    --accent: 178 42% 95%;
+    --accent-foreground: 178 42% 30%;
+
+    /* Secondary - warm neutral */
+    --secondary: 180 15% 96%;
+    --secondary-foreground: 220 15% 25%;
+
+    /* Card styling */
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 20%;
+
+    /* Muted tones */
+    --muted: 180 10% 96%;
+    --muted-foreground: 220 10% 45%;
+
+    /* Status colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 180 15% 90%;
+    --input: 180 15% 90%;
+    --ring: 178 42% 49%;
+
+    --radius: 0.75rem;
+
+    /* Custom pharmacy theme variables */
+    --hero-gradient: linear-gradient(135deg, hsl(178 42% 49% / 0.08) 0%, hsl(178 42% 49% / 0.02) 50%, hsl(0 0% 100%) 100%);
+    --card-shadow: 0 4px 24px -4px hsl(178 42% 49% / 0.12);
+    --card-shadow-hover: 0 8px 32px -4px hsl(178 42% 49% / 0.2);
+    --text-gradient: linear-gradient(135deg, hsl(178 42% 40%) 0%, hsl(178 52% 45%) 100%);
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 0 0% 98%;
+
+    --primary: 178 42% 55%;
+    --primary-foreground: 220 20% 10%;
+
+    --accent: 178 30% 20%;
+    --accent-foreground: 178 42% 80%;
+
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 0 0% 90%;
+
+    --card: 220 15% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 220 15% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 178 42% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Hero button variants */
+  .btn-hero-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground px-8 py-4 font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105;
+  }
+
+  .btn-hero-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-white text-primary border-2 border-primary/20 px-8 py-4 font-semibold text-lg transition-all duration-300 hover:bg-accent hover:border-primary/40;
+  }
+
+  /* Service card styling */
+  .service-card {
+    @apply bg-card rounded-2xl p-6 transition-all duration-300;
+    box-shadow: var(--card-shadow);
+  }
+
+  .service-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    @apply -translate-y-1;
+  }
+
+  /* Icon container */
+  .icon-container {
+    @apply w-14 h-14 rounded-xl bg-accent flex items-center justify-center text-primary;
+  }
+
+  /* Section styling */
+  .section-label {
+    @apply text-sm font-semibold uppercase tracking-wider text-primary;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground;
+  }
+
+  /* Floating action buttons */
+  .floating-action {
+    @apply fixed z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110;
+  }
+
+  /* Resource card */
+  .resource-card {
+    @apply flex items-center gap-4 p-4 rounded-xl bg-white border border-border transition-all duration-300 hover:border-primary/40 hover:shadow-md cursor-pointer;
+  }
+
+  /* Check item */
+  .check-item {
+    @apply flex items-center gap-3 text-foreground;
+  }
+
+  /* Form input styling */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-xl border border-border bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200;
+  }
+
+  /* Contact info item */
+  .contact-item {
+    @apply flex items-start gap-3 text-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-bg {
+    background: var(--hero-gradient);
+  }
+
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-sans {
+    font-family: 'DM Sans', sans-serif;
+  }
+}
