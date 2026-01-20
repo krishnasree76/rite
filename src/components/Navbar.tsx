@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
+import logo from "@/assets/image.png"; // ✅ LOGO
 
 const navLinks = [
   { name: "Home", href: "#home" },
   { name: "Services", href: "#services" },
   { name: "About", href: "#about" },
   { name: "Why Choose Us", href: "#why-choose-us" },
-  { name: "Careers", href: "#careers" },
+  { name: "Careers", href: "/careers" }, // ✅ Careers as page
   { name: "Contact", href: "#contact" },
 ];
 
@@ -15,13 +18,24 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ FIX: Scroll after menu closes (so mobile works)
+  // ✅ lock background scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
+
+  // ✅ scroll to section (only # links)
   const scrollToSection = (href) => {
     setIsMobileMenuOpen(false);
 
@@ -29,16 +43,35 @@ const Navbar = () => {
       const element = document.querySelector(href);
       if (!element) return;
 
-      // ✅ navbar height offset
       const headerOffset = 90;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
       });
-    }, 250);
+    }, 220);
+  };
+
+  // ✅ handles BOTH routes + smooth scroll
+  const handleNavClick = (href) => {
+    // route navigation
+    if (!href.startsWith("#")) {
+      setIsMobileMenuOpen(false);
+      navigate(href);
+      return;
+    }
+
+    // section scroll must happen on homepage
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => scrollToSection(href), 350);
+      return;
+    }
+
+    scrollToSection(href);
   };
 
   return (
@@ -47,64 +80,74 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-primary/95 backdrop-blur-md shadow-soft"
-          : "bg-primary"
+        isScrolled ? "bg-primary/95 backdrop-blur-md shadow-soft" : "bg-primary"
       }`}
     >
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#home");
-            }}
-            className="flex items-center gap-2"
+          {/* ✅ Logo */}
+          <button
+            type="button"
+            onClick={() => handleNavClick("#home")}
+            className="flex items-center gap-3"
           >
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
-              <span className="text-primary font-bold text-lg">R</span>
-            </div>
+            {/* ✅ Image logo tile */}
+            <motion.div
+              whileHover={{ rotate: 3, scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18 }}
+              className="w-11 h-11 rounded-xl overflow-hidden bg-white/15 border border-white/20 flex items-center justify-center"
+            >
+              <img
+                src={logo}
+                alt="Rite Pharmacy Logo"
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+
             <span className="text-xl font-display font-bold text-white">
               Rite Pharmacy
             </span>
-          </a>
+          </button>
 
-          {/* Desktop Navigation */}
+          {/* ✅ Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(link.href);
-                }}
-                className="text-white/80 hover:text-white transition-colors duration-200 font-medium"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith("#") ? (
+                <button
+                  key={link.name}
+                  type="button"
+                  onClick={() => handleNavClick(link.href)}
+                  className="text-white/80 hover:text-white transition-colors duration-200 font-medium"
+                >
+                  {link.name}
+                </button>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-white/80 hover:text-white transition-colors duration-200 font-medium"
+                >
+                  {link.name}
+                </Link>
+              )
+            )}
           </div>
 
-          {/* Desktop CTA */}
+          {/* ✅ Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("#contact");
-              }}
+            <button
+              type="button"
+              onClick={() => handleNavClick("#contact")}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-primary font-semibold hover:shadow-soft-lg hover:scale-105 transition-all duration-300"
             >
               <Phone className="w-4 h-4" />
               Contact Us
-            </a>
+            </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* ✅ Mobile Menu Button */}
           <button
+            type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 rounded-xl hover:bg-white/10 transition-colors"
             aria-label="Toggle menu"
@@ -117,7 +160,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* ✅ Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -129,31 +172,25 @@ const Navbar = () => {
             >
               <div className="py-4 space-y-2">
                 {navLinks.map((link) => (
-                  <a
+                  <button
                     key={link.name}
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.href);
-                    }}
-                    className="block px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors font-medium"
+                    type="button"
+                    onClick={() => handleNavClick(link.href)}
+                    className="block w-full text-left px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors font-medium"
                   >
                     {link.name}
-                  </a>
+                  </button>
                 ))}
 
                 <div className="px-4 pt-4">
-                  <a
-                    href="#contact"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("#contact");
-                    }}
+                  <button
+                    type="button"
+                    onClick={() => handleNavClick("#contact")}
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white text-primary font-semibold hover:shadow-soft-lg hover:scale-[1.02] transition-all duration-300"
                   >
                     <Phone className="w-4 h-4" />
                     Contact Us
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>

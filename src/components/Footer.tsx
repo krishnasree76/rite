@@ -1,20 +1,52 @@
-import { motion } from 'framer-motion';
-import { Phone, MapPin, Mail, Heart } from 'lucide-react';
+import { motion } from "framer-motion";
+import { Phone, MapPin, Mail, Heart } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import logo from "@/assets/image.png"; // ✅ add logo
 
 const quickLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'Services', href: '#services' },
-  { name: 'About', href: '#about' },
-  { name: 'Contact', href: '#contact' },
-  { name: 'Careers', href: '#careers' },
+  { name: "Home", href: "#home" },
+  { name: "Services", href: "#services" },
+  { name: "About", href: "#about" },
+  { name: "Contact", href: "#contact" },
+  { name: "Careers", href: "/careers" }, // ✅ Careers as page route
 ];
 
 const Footer = () => {
-  const scrollToSection = (href: string) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // ✅ smooth scroll with offset (navbar fixed)
+  const scrollToSection = (href) => {
     const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (!element) return;
+
+    const headerOffset = 90;
+    const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  };
+
+  // ✅ route + scroll handler
+  const handleFooterLink = (href) => {
+    // route
+    if (!href.startsWith("#")) {
+      navigate(href);
+      return;
     }
+
+    // section scroll must happen on homepage
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => scrollToSection(href), 350);
+      return;
+    }
+
+    scrollToSection(href);
   };
 
   return (
@@ -29,12 +61,25 @@ const Footer = () => {
             transition={{ duration: 0.5 }}
             className="space-y-4"
           >
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">R</span>
-              </div>
-              <span className="text-xl font-display font-bold">Rite Pharmacy</span>
+            <div className="flex items-center gap-3">
+              {/* ✅ Logo Image */}
+              <motion.div
+                whileHover={{ rotate: 6, scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 240, damping: 16 }}
+                className="w-12 h-12 rounded-full overflow-hidden border border-white/20 bg-white/10 shadow-soft flex items-center justify-center"
+              >
+                <img
+                  src={logo}
+                  alt="Rite Pharmacy Logo"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+
+              <span className="text-xl font-display font-bold">
+                Rite Pharmacy
+              </span>
             </div>
+
             <p className="text-background/70 text-sm leading-relaxed">
               Your trusted community pharmacy in Bronx, NY. Providing personalized
               care and quality service since 2010.
@@ -49,19 +94,17 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <h4 className="font-display font-bold text-lg mb-4">Quick Links</h4>
+
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(link.href);
-                    }}
+                  <button
+                    type="button"
+                    onClick={() => handleFooterLink(link.href)}
                     className="text-background/70 hover:text-primary transition-colors text-sm"
                   >
                     {link.name}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -75,6 +118,7 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h4 className="font-display font-bold text-lg mb-4">Contact Us</h4>
+
             <ul className="space-y-3">
               <li>
                 <a
@@ -85,6 +129,7 @@ const Footer = () => {
                   +1 (718) 328-0000
                 </a>
               </li>
+
               <li>
                 <a
                   href="mailto:ritecarepharmacy@yahoo.com"
@@ -94,6 +139,7 @@ const Footer = () => {
                   ritecarepharmacy@yahoo.com
                 </a>
               </li>
+
               <li>
                 <a
                   href="https://maps.google.com/?q=805+Soundview+Ave,+Bronx,+NY+10473"
@@ -116,6 +162,7 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <h4 className="font-display font-bold text-lg mb-4">Store Hours</h4>
+
             <ul className="space-y-2 text-sm text-background/70">
               <li className="flex justify-between">
                 <span>Mon - Fri</span>
@@ -145,18 +192,18 @@ const Footer = () => {
             <p className="text-sm text-background/60">
               © {new Date().getFullYear()} Rite Pharmacy. All rights reserved.
             </p>
-            <p className="text-sm text-background/60 flex items-center gap-1">
-  Made with <Heart className="w-4 h-4 text-primary" /> by{" "}
-  <a
-    href="https://www.staffarc.in/"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-primary font-semibold hover:underline"
-  >
-    StaffArc
-  </a>
-</p>
 
+            <p className="text-sm text-background/60 flex items-center gap-1">
+              Made with <Heart className="w-4 h-4 text-primary" /> by{" "}
+              <a
+                href="https://www.staffarc.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-semibold hover:underline"
+              >
+                StaffArc
+              </a>
+            </p>
           </div>
         </motion.div>
       </div>
