@@ -62,23 +62,21 @@ const Footer = () => {
             className="space-y-4"
           >
             <div className="flex items-center gap-3">
-              {/* ✅ Logo Image */}
-              <motion.div
-                whileHover={{ rotate: 6, scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 240, damping: 16 }}
-                className="w-12 h-12 rounded-full overflow-hidden border border-white/20 bg-white/10 shadow-soft flex items-center justify-center"
-              >
-                <img
-                  src={logo}
-                  alt="Rite Pharmacy Logo"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
+  <motion.div
+    whileHover={{ rotate: 3, scale: 1.04 }}
+    transition={{ type: "spring", stiffness: 260, damping: 18 }}
+    className="w-11 h-11 rounded-xl overflow-hidden bg-white/15 border border-white/20 flex items-center justify-center"
+  >
+    <img
+      src={logo}
+      alt="Rite Pharmacy Logo"
+      className="w-full h-full object-cover"
+    />
+  </motion.div>
 
-              <span className="text-xl font-display font-bold">
-                Rite Pharmacy
-              </span>
-            </div>
+  <span className="text-xl font-display font-bold">Rite Pharmacy</span>
+</div>
+
 
             <p className="text-background/70 text-sm leading-relaxed">
               Your trusted community pharmacy in Bronx, NY. Providing personalized

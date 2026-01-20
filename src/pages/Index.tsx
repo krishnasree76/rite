@@ -6,7 +6,7 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 // import Careers from '@/components/Careers';
 import Contact from '@/components/Contact';
 import Map from '@/components/Map';
-import Footer from '@/components/Footer';
+// import Footer from '@/components/Footer';
 import WhatsappFloat from '@/components/WhatsappFloat';
 
 const Index = () => {
@@ -22,7 +22,7 @@ const Index = () => {
         <Contact />
         <Map />
       </main>
-      <Footer />
+      {/* <Footer /> */}
       <WhatsappFloat />
     </div>
   );
